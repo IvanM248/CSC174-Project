@@ -20,32 +20,46 @@
             $phone = $_POST['Phone'];
             $emailAddress = $_POST['Email'];
 
-            $insert = "INSERT INTO PASSENGER (passenger_id, first_name, last_name, address, phone, email) 
-                        VALUES ('$passengerID', '$firstName', '$lastName', '$address', '$phone', '$emailAddress');";
+            $query = "INSERT INTO PASSENGER (passenger_id, first_name, last_name, address, phone, email) 
+                        VALUES (?, ?, ?, ?, ?, ?);";
 
 
             try{
-                $insertResult = mysqli_query($conn, $insert);
+                $preparedStmt = mysqli_stmt_init($conn);
+                if(mysqli_stmt_prepare($preparedStmt, $query)){
 
-                if($insertResult){
-                    $passengerData = "SELECT * FROM PASSENGER;";
-                    $queryResult = mysqli_query($conn, $passengerData);
-                    $resultCheck = mysqli_num_rows($queryResult);
-                    if($resultCheck > 0){
-                        while($row = mysqli_fetch_assoc($queryResult)){
-                            echo $row['passenger_id'] 
-                            . " &nbsp&nbsp&nbsp'" . $row['first_name'] ."' " 
-                            . " &nbsp&nbsp&nbsp'" . $row['last_name'] ."' " 
-                            . " &nbsp&nbsp&nbsp'" . $row['address'] ."' " 
-                            . " &nbsp&nbsp&nbsp'" . $row['phone'] ."' " 
-                            . " &nbsp&nbsp&nbsp'" . $row['email'] ."' " 
-                            ."<br>"
-                            ."<br>";
+                    //Bind user input parameters to preprared statement
+                    mysqli_stmt_bind_param($preparedStmt, "isssss", 
+                                                $passengerID, 
+                                                $firstName,
+                                                $lastName,
+                                                $address,
+                                                $phone,
+                                                $emailAddress);
+
+                    //Execute insert
+                    if(mysqli_stmt_execute($preparedStmt)){
+
+                        //If insert statement was successful, display passenger table contents.
+                        $passengerData = "SELECT * FROM PASSENGER;";
+                        $queryResult = mysqli_query($conn, $passengerData);
+                        $resultCheck = mysqli_num_rows($queryResult);
+                        if($resultCheck > 0){
+                            while($row = mysqli_fetch_assoc($queryResult)){
+                                echo $row['passenger_id'] 
+                                . " &nbsp&nbsp&nbsp'" . $row['first_name'] ."' " 
+                                . " &nbsp&nbsp&nbsp'" . $row['last_name'] ."' " 
+                                . " &nbsp&nbsp&nbsp'" . $row['address'] ."' " 
+                                . " &nbsp&nbsp&nbsp'" . $row['phone'] ."' " 
+                                . " &nbsp&nbsp&nbsp'" . $row['email'] ."' " 
+                                ."<br>"
+                                ."<br>";
+                            }
                         }
                     }
-                }
-                else{
-                    echo "Insert failed";
+                    else{
+                        echo "Insert failed";
+                    }
                 }
             }
             catch(Exception $e){

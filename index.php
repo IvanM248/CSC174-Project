@@ -25,23 +25,5 @@
             <br>
             <button type="submit" name="insert" style="margin-top: 0.5rem;">Insert</button>
         </form>
-
-        <h1 style="margin-bottom: 0;">Find Passenger(s) By:</h1>
-        <form action="find.php" method="POST">
-            <input style="margin-top: 0.5rem;" type="text" name = "PID" placeholder="Passenger ID"></>
-            <br>
-            <input style="margin-top: 0.5rem;" type="text" name = "First" placeholder="First Name"></>
-            <br>
-            <input style="margin-top: 0.5rem;"type="text" name = "Last" placeholder="Last Name"></>
-            <br>
-            <input style="margin-top: 0.5rem;" type="text" name = "Address" placeholder="Address"></>
-            <br>
-            <input style="margin-top: 0.5rem;" type="tel" name = "Phone" placeholder="Phone Number"></>
-            <br>
-            <input style="margin-top: 0.5rem;" type="email" name = "Email" placeholder="Email Address"></>
-            <br>
-            <button type="submit" name="insert" style="margin-top: 0.5rem;">Find</button>
-        </form>
-            
     </body>
 </html>
