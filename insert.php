@@ -11,7 +11,6 @@
         <h1>Passenger Table:</h1>
 
         <?php
-            //include_once 'dbh.php';
             $dbServerName = "csc174project.czexzyjnislo.us-west-1.rds.amazonaws.com";
             $dbUserName = "admin";
             $dbPassword = "Q2v9x!t7gMBM2LKH*^R5";
