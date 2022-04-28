@@ -11,7 +11,13 @@
         <h1>Passenger Table:</h1>
 
         <?php
-            include_once 'dbh.php';
+            //include_once 'dbh.php';
+            $dbServerName = "csc174project.czexzyjnislo.us-west-1.rds.amazonaws.com";
+            $dbUserName = "admin";
+            $dbPassword = "Q2v9x!t7gMBM2LKH*^R5";
+            $dbName = "AIRLINE";
+
+            $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
 
             $passengerID = $_POST['PID'];
             $firstName = $_POST['First'];
@@ -65,6 +71,8 @@
             catch(Exception $e){
                 echo "Insert failed";
             }
+
+            mysqli_close($conn);
         ?>
 
         <?php
